@@ -1,99 +1,67 @@
-// src/components/GameBoard.js
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import "./GameBoard.css"; // Add a CSS file for styling
 
 const GameBoard = () => {
-  const character = useSelector((state) => state.game.character);
-  const [playerPosition, setPlayerPosition] = useState(0); // Starting position
-  const [score, setScore] = useState(0);
+  const [playerPosition, setPlayerPosition] = useState({ x: 0, y: 0 });
+  const boardSize = 5; // Define the size of the game board
 
-  const [tiles, setTiles] = useState(generateTiles(25)); // Generate tiles for a 5x5 board
-  const [message, setMessage] = useState("");
+  const movePlayer = (direction) => {
+    const newPosition = { ...playerPosition };
 
-  // Function to generate random tiles with different contents
-  function generateTiles(size) {
-    const tileContents = ["monster", "treasure", "trap", "empty", "hint"];
-    return Array.from({ length: size }, () => {
-      const randomIndex = Math.floor(Math.random() * tileContents.length);
-      return tileContents[randomIndex];
-    });
-  }
-
-  // Function to roll the dice and determine movement
-  const rollDice = () => {
-    return Math.floor(Math.random() * 6) + 1; // Dice rolls a number between 1 and 6
-  };
-
-  // Function to move the player
-  const movePlayer = () => {
-    const diceRoll = rollDice();
-    const newPosition = playerPosition + diceRoll;
-    if (newPosition < tiles.length) {
-      setPlayerPosition(newPosition);
-      handleTileReveal(newPosition); // Reveal the tile content when moving
-      setScore((prevScore) => prevScore + 1); // Example scoring mechanic
-    }
-  };
-
-  // Function to handle tile reveal
-  const handleTileReveal = (position) => {
-    const tileContent = tiles[position];
-    switch (tileContent) {
-      case "monster":
-        setMessage("You encountered a monster! Prepare for battle!");
+    switch (direction) {
+      case "up":
+        newPosition.y = Math.max(0, newPosition.y - 1);
         break;
-      case "treasure":
-        setMessage("You found a treasure! Score points!");
-        setScore((prevScore) => prevScore + 5); // Example score increment for treasure
+      case "down":
+        newPosition.y = Math.min(boardSize - 1, newPosition.y + 1);
         break;
-      case "trap":
-        setMessage("You fell into a trap! Lose some points.");
-        setScore((prevScore) => Math.max(prevScore - 3, 0)); // Example score decrement
+      case "left":
+        newPosition.x = Math.max(0, newPosition.x - 1);
         break;
-      case "hint":
-        setMessage("You found a hint! It may help you later.");
-        break;
-      case "empty":
-        setMessage("Nothing here... Just keep moving.");
+      case "right":
+        newPosition.x = Math.min(boardSize - 1, newPosition.x + 1);
         break;
       default:
-        setMessage("");
+        break;
     }
+
+    setPlayerPosition(newPosition);
+  };
+
+  const renderBoard = () => {
+    const board = [];
+    for (let row = 0; row < boardSize; row++) {
+      const columns = [];
+      for (let col = 0; col < boardSize; col++) {
+        const isPlayer = playerPosition.x === col && playerPosition.y === row;
+        columns.push(
+          <div
+            key={`${row}-${col}`}
+            className={`cell ${isPlayer ? "player" : ""}`}
+          >
+            {isPlayer ? "P" : ""}
+          </div>
+        );
+      }
+      board.push(
+        <div key={row} className="row">
+          {columns}
+        </div>
+      );
+    }
+    return board;
   };
 
   return (
     <div>
-      <h1>Game Board</h1>
-      <h2>Character: {character}</h2>
-      <h3>Score: {score}</h3>
-      <h4>{message}</h4>
-
-      <div
-        className="board"
-        style={{ display: "grid", gridTemplateColumns: "repeat(5, 100px)" }}
-      >
-        {tiles.map((tile, index) => (
-          <div
-            key={index}
-            className={`tile ${index === playerPosition ? "active" : ""}`}
-            style={{
-              width: "100px",
-              height: "100px",
-              border: "1px solid black",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              backgroundColor: index === playerPosition ? "lightblue" : "white",
-            }}
-          >
-            {index === playerPosition ? tile.charAt(0).toUpperCase() : "?"}{" "}
-            {/* Show first letter of tile type */}
-          </div>
-        ))}
-      </div>
-
+      <h2>Game Board</h2>
+      <p>Player Position: {JSON.stringify(playerPosition)}</p>
+      <div className="board">{renderBoard()}</div>
       <div className="controls">
-        <button onClick={movePlayer}>Roll Dice and Move</button>
+        <button onClick={() => movePlayer("up")}>Move Up</button>
+        <button onClick={() => movePlayer("down")}>Move Down</button>
+        <button onClick={() => movePlayer("left")}>Move Left</button>
+        <button onClick={() => movePlayer("right")}>Move Right</button>
       </div>
     </div>
   );

@@ -9,6 +9,14 @@ body {
 
 .game-container {
   text-align: center; /* Center text */
+  margin: 20px; /* Add some margin */
+}
+
+.game-board {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr); /* 5 columns for the board */
+  gap: 10px; /* Space between tiles */
+  margin: 20px; /* Add some margin around the board */
 }
 
 .board {

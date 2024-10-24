@@ -1,0 +1,31 @@
+.board {
+  display: grid;
+  grid-template-rows: repeat(5, 50px); /* Change 5 to your board size */
+  grid-template-columns: repeat(5, 50px);
+  gap: 5px;
+  margin-top: 20px;
+}
+
+.row {
+  display: flex;
+}
+
+.cell {
+  width: 50px;
+  height: 50px;
+  border: 1px solid #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f0f0f0;
+}
+
+.player {
+  background-color: #007bff;
+  color: white;
+  font-weight: bold;
+}
+
+.controls {
+  margin-top: 20px;
+}

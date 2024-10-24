@@ -1,6 +1,6 @@
-Description: Embark on a humorous journey through ancient pyramids, mystical Atlantis, and quirky llama-filled realms in this tile-based adventure game. Players navigate a 5x5 board, face off against comical monsters, discover treasures, and overcome traps. With engaging combat mechanics, character selection, and a touch of strategy, this game promises endless fun for players of all ages!
+# 3 Tribes -Adventures in Atlantis
 
-# Adventures in Atlantis
+Description: Embark on a humorous journey through ancient pyramids, mystical Atlantis, and quirky llama-filled realms in this tile-based adventure game. Players navigate a 5x5 board, face off against comical monsters, discover treasures, and overcome traps. With engaging combat mechanics, character selection, and a touch of strategy, this game promises endless fun for players of all ages!
 
 ## Overview
 
@@ -13,10 +13,3 @@ Description: Embark on a humorous journey through ancient pyramids, mystical Atl
 - **Character Selection**: Choose from different quirky tribes and characters before embarking on your adventure.
 - **Multiple Players**: Play solo or with up to three friends, with optional NPC companions.
 - **Humorous Theme**: Enjoy a light-hearted narrative filled with whimsical challenges and laughs.
-
-## Installation
-
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/yourusername/adventures-in-atlantis.git
-   ```

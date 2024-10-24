@@ -1,6 +1,5 @@
+// src/components/CombatModal.js
 import React from "react";
-import Modal from "react-bootstrap/Modal";
-import Button from "react-bootstrap/Button";
 
 const CombatModal = ({
   show,
@@ -9,43 +8,20 @@ const CombatModal = ({
   monster,
   onCombatResult,
 }) => {
-  const handleAttack = () => {
-    const playerRoll = Math.floor(Math.random() * 6) + 1; // Roll a dice (1-6)
-    const monsterDefense = monster.defense;
-
-    if (playerRoll + player.attack > monsterDefense) {
-      onCombatResult("win");
-    } else {
-      onCombatResult("lose");
-    }
-
-    handleClose();
-  };
-
-  if (!monster) return null; // Ensure monster is available
-
   return (
-    <Modal show={show} onHide={handleClose}>
-      <Modal.Header closeButton>
-        <Modal.Title>Combat with {monster.name}!</Modal.Title>
-      </Modal.Header>
-      <Modal.Body>
-        <div>
-          <h5>Monster Card</h5>
-          <p>Name: {monster.name}</p>
-          <p>Defense: {monster.defense}</p>
-        </div>
-        <p>Roll to attack!</p>
-      </Modal.Body>
-      <Modal.Footer>
-        <Button variant="secondary" onClick={handleClose}>
-          Cancel
-        </Button>
-        <Button variant="primary" onClick={handleAttack}>
-          Attack!
-        </Button>
-      </Modal.Footer>
-    </Modal>
+    <div className={`modal ${show ? "is-active" : ""}`}>
+      <div className="modal-background" onClick={handleClose}></div>
+      <div className="modal-content">
+        {/* Your modal content goes here */}
+        <h2>Combat with {monster ? monster.name : "..."}</h2>
+        {/* Add more combat UI here */}
+      </div>
+      <button
+        className="modal-close is-large"
+        aria-label="close"
+        onClick={handleClose}
+      ></button>
+    </div>
   );
 };
 
