@@ -21,3 +21,4 @@ is a whimsical tile-based game that invites players to explore ancient pyramids,
 - Feel free to modify any sections to better fit your project or add additional information as needed.
 
 Once you finalize your game and structure, this README will serve as a helpful guide for anyone interested in your project! Let me know if you need any further adjustments or additional sections.
+# 3Tribes
